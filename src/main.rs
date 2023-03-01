@@ -1,16 +1,17 @@
 use crossterm::{
     event::{read, Event::Key, KeyCode},
-    Result,
+    terminal, Result,
 };
 
 fn main() -> Result<()> {
+    terminal::enable_raw_mode()?;
     // loop {
     while let Ok(event) = read() {
         if let Key(key_event) = event {
             if key_event.code == KeyCode::Char('q') {
                 break;
             } else {
-                println!("{event:?}");
+                println!("{event:?}\r");
             }
         }
     }
@@ -18,5 +19,6 @@ fn main() -> Result<()> {
     //     break;
     // }
     // }
+    terminal::disable_raw_mode()?;
     Ok(())
 }
