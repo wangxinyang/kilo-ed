@@ -1,5 +1,5 @@
 use crossterm::{
-    event::{poll, read, Event::Key, KeyCode},
+    event::{poll, read, Event::Key, KeyCode, KeyModifiers},
     terminal, Result,
 };
 use errno::errno;
@@ -29,7 +29,7 @@ fn main() -> Result<()> {
         }
 
         if let Some(c) = c {
-            if c.code == KeyCode::Char('q') {
+            if c.code == KeyCode::Char('q') && c.modifiers.contains(KeyModifiers::CONTROL) {
                 break;
             } else {
                 println!("{c:?}\r");
